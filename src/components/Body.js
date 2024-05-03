@@ -1,136 +1,128 @@
-import RestaurantCard from "./RestaurantCard"
-import  resList from "../utils/mockData"
-import { useState } from "react";
+
+import RestaurantCard, { withPromtedLabel } from "./RestaurantCard"
+import { useContext, useEffect, useState } from "react"
+import Shimmer from "./Shimmer"
+import {Link } from "react-router-dom";
+import useOnlineStatus from "../utils/UseOnlineStatus";
+import UserContext from '../utils/UserContext.js';
 
     
-    // * What is Config-driven-UI -> A "config-driven UI" is a user interface that is built and configured using a declarative configuration file or data structure, rather than being hardcoded.
-    
-    // * Every company now-a-days follows these approach, because our Appications need to be Dynamic These Days
-    
-    // * Note: A Good Senior Frontend engineer is - who is a good UI Layer Engineer and a good Data Layer Engineer
-    
 
-
-
-
-
-
-    
-    
-    
-    // * not using keys (not acceptable) <<<< index as a key <<<<<<<<<< unique id (is the best  practice)
 const Body = () => {
-  // Local state Variable - Super Powerful variable
-  const [listOfRestaurants, setListOfRestraunt] = useState(resList)
+  
+  const [listOfRestaurants, setListOfRestraunt] = useState([]);
+  
+  const [filteredRestaurant, setFilteredRestaurant] = useState([]);
 
-  // normal js Variable
-  // let listOfRestaurants =[
-  // {
-  //     info: {
-  //       id: "718473",
-  //       name: "Chinese Wok",
-  //       cloudinaryImageId: "e0839ff574213e6f35b3899ebf1fc597",
-  //       deliveryTime: 36,
-  //       costForTwo: "₹250 for two",
-  //       cuisines: [
-  //         "Chinese",
-  //         "Asian",
-  //         "Tibetan",
-  //         "Desserts"
-  //       ],
-  //       avgRating: "3.8",
-  //   }
-  // },
-  // {
-  //   info: {
-  //     id: "53747",
-  //     name: "Pizza Hut",
-  //     cloudinaryImageId: "2b4f62d606d1b2bfba9ba9e5386fabb7",
-  //     costForTwo: "₹350 for two",
-  //     cuisines: [
-  //       "Pizzas"
-  //     ],
-  //     avgRating:"3.7",
-  // }
-  // },
-  // {
-  // info: {
-  //   id: "38925",
-  //   name: "Domino's Pizza",
-  //   cloudinaryImageId: "d0450ce1a6ba19ea60cd724471ed54a8",
-  //   locality: "Netaji Subhash Marg",
-  //   areaName: "Daryaganj",
-  //   costForTwo: "₹400 for two",
-  //   cuisines: [
-  //     "Pizzas",
-  //     "Italian",
-  //     "Pastas",
-  //     "Desserts"
-  //   ],
-  //   avgRating: "4.1",
-  // }
-  // },
-  // {
-  // info: {
-  //   id: "79716",
-  //   name: "Burger King",
-  //   cloudinaryImageId: "e33e1d3ba7d6b2bb0d45e1001b731fcf",
-  //   locality: "Aditya Mega Mall",
-  //   areaName: "Shahdara",
-  //   costForTwo: "₹350 for two",
-  //   cuisines: [
-  //     "Burgers",
-  //     "American"
-  //   ],
-  //   avgRating: "4.1",
-  // }
-  // }
-  // ]
-    return (
+  const [searchText, setSearchText] = useState("");
+
+  const RestaurantCardPromoted = withPromtedLabel(RestaurantCard);
+
+      console.log("body Rendered", listOfRestaurants);
+  
+
+
+     useEffect(() => {
+    fetchData();
+        }, []);
+
+
+
+  const fetchData = async () => {
+    const data = await fetch(
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.61450&lng=77.30630&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+    );
+    const json = await data.json();
+    console.log(json);
+    
+    setListOfRestraunt(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants) 
+    setFilteredRestaurant(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+  }
+
+
+
+  const onLineStatus = useOnlineStatus();
+  if(onLineStatus === false)
+     return(
+    <h>
+      Looks like you are offline !! please check your internet connection;
+    </h>
+    );
+  
+ const {loggedInUser, setUserName} = useContext(UserContext)
+
+
+    return listOfRestaurants.length === 0 ?(
+      <Shimmer />
+    ):
+    (
       <div className="body">
-        <div className="filter">
-          
-          <button className="filter-btn" onClick={() =>{
-            const filteredList = listOfRestaurants.filter(
-              (res) => res.info.avgRating > "4"
-            );
-            setListOfRestraunt(filteredList)
-          }}>
-            Top Rated Restaurants</button>
+        <div className="filter flex">
+          <div className="search m-4 p-4">
+
+            <input type="text" className="border border-solid border-black" value={searchText}
+            onChange={(e) => {
+              setSearchText(e.target.value);
+            }}/>
+
+
+            <button className="px-4 py-2 bg-green-100 m-4 rounded-lg"
+              onClick={() => {
+                console.log(searchText)
+              const filteredRestaurant = listOfRestaurants.filter(
+                (res) => res.info.name.toLowerCase().includes(searchText.toLowerCase())
+              );
+              setFilteredRestaurant(filteredRestaurant);
+              }}>
+              Search
+            </button>
+
+          </div>
+
+
+          <div className="search m-4 p-4 flex items-center">
+             <button className="px-4 py-2 bg-gray-100 rounded-lg" onClick={() =>{
+               const filteredList = listOfRestaurants.filter(
+               (res) => parseFloat(res.info.avgRating) > "4.1"
+               );
+               setFilteredRestaurant(filteredList)
+                console.log(filteredList)
+               }}>
+               Top Rated Restaurants
+             </button>
+          </div>
+          <div className="search m-4 p-4 flex items-center">
+             <label>UserName : </label>
+             <input
+               className="border border-black p-2"
+               value={loggedInUser}
+               onChange={(e) => setUserName(e.target.value)}
+             />
+           </div>
         </div>
-        <div className="res-container">
-         
-           {/* <RestaurantCard resData={resList[0]} />
-          <RestaurantCard resData={resList[1]} />
-          <RestaurantCard resData={resList[2]} />
-          <RestaurantCard resData={resList[3]} />
-          <RestaurantCard resData={resList[4]} />
-          <RestaurantCard resData={resList[5]} />
-          <RestaurantCard resData={resList[6]} />
-          <RestaurantCard resData={resList[7]} />
-          <RestaurantCard resData={resList[8]} />
-          <RestaurantCard resData={resList[9]} />
-          <RestaurantCard resData={resList[10]} />
-          <RestaurantCard resData={resList[11]} />
-          <RestaurantCard resData={resList[12]} /> */}
+
+
+           <div className="flex flex-wrap">
+               {filteredRestaurant.map((restaurant) => (
+               <Link key={restaurant.info.id}
+                 to={"/restaurants/" + restaurant.info.id}>
+
+                {/* if the restaurant is Promoted then add a promoted label to it */}
+                {restaurant.info.promoted ? (<RestaurantCardPromoted resData={restaurant} />
+                ) : (
+                  <RestaurantCard  resData={restaurant} />
+                )}
+                
+               </Link>
+              ))}
   
-          {/* // * looping through the <RestaurentCard /> components Using Array.map() method */}
-  
-          {listOfRestaurants.map((restaurant) => (
-            <RestaurantCard key={restaurant.info.id} resData={restaurant} />
-          ))}
-  
-          {/* // * or */}
-  
-          {/* // * We can also use index as the key to the JSX child elemnt - which is the 2nd parameter of the map() method, but is not a recommended practice - react official Docs declared this/}
-  
-          {resList.map((restaurant, index) => (
-            <RestaurantCard key={index} resData={restaurant} />
-          ))}
-  
-          {/* // * Why should we provide key property to the child elements - When creating a list in the UI from an array with JSX, you should add a key prop to each child and to any of its' children. React uses the key prop create a relationship between the component and the DOM element. The library uses this relationship to determine whether or not the component should be re-rendered.
-           */}
-        </div>
+               {/* // * Why should we provide key property to the child elements
+                - When creating a list in the UI from an array with JSX, 
+                you should add a key prop to each child and to any of its' children.
+                React uses the key prop create a relationship between the component and the DOM element.
+                The library uses this relationship to determine whether or not the component should be re-rendered.
+               */}
+           </div>
       </div>
     );
   };
