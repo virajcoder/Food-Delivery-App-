@@ -2,7 +2,7 @@ import React from 'react';
 
 const ShimmerMenu = () => {
   return (
-    <div className="menu shimmer-menu">
+    <div className="bg-gray-300">
       <header className="menu-header shimmer-menu stroke animate">
         <div className="menu-header-left shimmer-menu stroke animate">
           <img src="" alt="" className="stroke animate" />

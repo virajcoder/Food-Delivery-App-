@@ -1,0 +1,67 @@
+.signup {
+    min-height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.signup-form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 30px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    border-radius: 4px;
+}
+
+.signup-form-container h2 {
+    text-align: center;
+}
+
+.signup-form-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.signup-form-container .form-group {
+    margin-bottom: 10px;
+}
+
+.signup-form-container label {
+    font-weight: bold;
+}
+
+.signup-form-container input[type='text'],
+.signup-form-container input[type='email'],
+.signup-form-container input[type='password'] {
+    max-width: 100%;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.signup-form-container button[type='submit'] {
+    padding: 10px;
+    width: 100%;
+    background-color: #0C2340;
+    color: white;
+    border: none;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.signup-form-container button[type='submit']:hover {
+    background-color: gold;
+    color: black;
+}
