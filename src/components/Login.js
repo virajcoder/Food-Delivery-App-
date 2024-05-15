@@ -16,6 +16,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
 const Login = () => {
   const classes = useStyles();
   const [formData, setFormData] = useState({
@@ -23,6 +25,7 @@ const Login = () => {
     password: '',
   });
   const [showPassword, setShowPassword] = useState(false);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,6 +43,7 @@ const Login = () => {
     e.preventDefault();
     // Add your login logic here, such as sending credentials to a backend API
     console.log('Login form submitted:', formData);
+    localStorage.setItem("token", JSON.stringify(formData));
   };
 
   return (

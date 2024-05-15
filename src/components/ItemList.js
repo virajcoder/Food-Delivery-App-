@@ -1,11 +1,20 @@
 import { useDispatch } from "react-redux";
 import { addItem } from "../utils/cartSlice";
 import { CON_URL } from "../../src/utils/constants";
+import toast from 'react-hot-toast'
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+
+
 const ItemList = ({items, dummy}) => {
     // console.log(dummy)
 
-    const dispatch = useDispatch();
+    const cartItems = useSelector((store) => store.cart.items);
+console.log('c',cartItems.find(item=>item))
+console.log('c--',items.find(item=>item))
 
+    const dispatch = useDispatch();
+console.log("virt" ,items.info)
     const handleAddItem = (item) => {
       // Dispatch an action
       console.log(item,"kkk")
@@ -33,12 +42,18 @@ const ItemList = ({items, dummy}) => {
           </div>
           <div className="w-3/12 p-4">
             <div className="absolute">
-              <button
-                className="p-2 ml-8 mt-[75px] rounded-lg bg-black text-white shadow-lg hover:bg-white  hover:text-black transition-all duration-[.3s]"
-                onClick={() =>handleAddItem(item)}
-              >
-                Add +
-              </button>
+          {cartItems.find(it=>it?.id===item.card.info.id)?<Link
+            className="p-2 ml-8 mt-[75px] rounded-lg bg-black text-white shadow-lg hover:bg-white  hover:text-black transition-all duration-[.3s]"
+            to='/Cart'
+
+          >
+            Go to cart
+          </Link>:<button
+            className="p-2 ml-8 mt-[75px] rounded-lg bg-black text-white shadow-lg hover:bg-white  hover:text-black transition-all duration-[.3s]"
+            onClick={() =>{handleAddItem(item), toast('Added Sucessfully')}}
+          >
+            Add to cart
+          </button>}
             </div>
             <div>
             <img
