@@ -11,10 +11,12 @@ import RestaurantMenu from './components/RestaurantMenu.js';
 import UserContext from './utils/UserContext.js';
 import {Provider } from "react-redux"; 
 import appStore from './utils/appStore.js';
-import Cart from "./components/Cart";
+import Cart from "./components/Cart.js";
 import Login from './components/Login.js';
 import Signup from './components/Signup.js'
 import AddressForm from './components/Address.js'
+import { Auth } from './components/Auth.js';
+import toast, { Toaster } from 'react-hot-toast';
 
 // import Grocery from './components/Grocery.js';
 
@@ -45,7 +47,10 @@ useEffect(() => {
     <UserContext.Provider value={{ loggedInuser: userName, setUserName}}>
     <div className="app">
       <Header />
+      <Toaster/>
+      <Auth>
       <Outlet/>
+      </Auth>
       <Footer />
     </div>
     </UserContext.Provider>

@@ -1,4 +1,9 @@
 import { useContext, useState } from "react";
+import * as React from 'react';
+import Badge from '@mui/material/Badge';
+import { styled } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { LOGO_URL } from "../utils/constants";
 import {Link } from "react-router-dom";
 import useOnlinestatus from "../utils/UseOnlineStatus";
@@ -6,6 +11,16 @@ import UserContext from "../utils/UserContext";
 import { useSelector } from "react-redux";
 import logo from '../assets/logo.png'
 import Sidebar from "../components/Sidebar";
+
+
+const StyledBadge = styled(Badge)(({ theme }) => ({
+  '& .MuiBadge-badge': {
+    right: -3,
+    top: 13,
+    border: `2px solid ${theme.palette.background.paper}`,
+    padding: '0 4px',
+  },
+}));
 
 const Header = () => {
   const [btnNameReact, setBtnNameReact] = useState("Login");
@@ -38,10 +53,10 @@ const Header = () => {
             {/* <li className="px-4">
               Online Status: {onlineStatus ? "🟢" : "🔴"}
             </li> */}
-            <li className="px-4"> 
+            <li className="px-4 mt-2"> 
               <Link to="/">Home</Link>
             </li>
-            <li className="px-4">
+            <li className="px-4 mt-2">
               <Link to="/about">About Us</Link>
             </li>
             {/* <li className="px-4">
@@ -50,11 +65,16 @@ const Header = () => {
             {/* <li className="px-4">
             <Link to="/grocery">Grocery</Link>
             </li> */}
-            <li className="px-4 font-bold text-xl">
-            <Link to="/cart">Cart - ({cartItems.length} items)</Link>
+            <li className="px-4  font-bold text-xl">
+            <Link to="/cart">  <IconButton aria-label="cart" >
+      <StyledBadge badgeContent={cartItems.length} color="primary" >
+        <ShoppingCartIcon />
+      </StyledBadge>
+    </IconButton>
+    </Link>
           </li>
           
-            <button className="login"
+            <button className="login text-3xl"
             //  onClick={() => {
             //   btnNameReact ==="Login"? setBtnNameReact("Logout") : setBtnNameReact("Login");
             //   }}
@@ -65,7 +85,7 @@ const Header = () => {
 
              </button>
 
-             <li className="px-4 ">{loggedInuser} {onlineStatus ? "✅" : "🔴"}</li>
+             <li className="px-4 mt-2 ">{loggedInuser} {onlineStatus ? "✅" : "🔴"}</li>
           </ul>
         </div>
       </div>
