@@ -40,7 +40,7 @@ const RestaurantCard = (props) => {
       className="m-4 p-4 w-[250px] h-[95%] rounded-lg bg-red-100 hover:bg-gray-200 "
       >
         <img
-          className="rounded-lg"
+          className="rounded-lg h-[50%]"
           alt="res-logo"
           // src={
           //   'https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/' +

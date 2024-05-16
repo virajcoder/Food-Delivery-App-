@@ -10,6 +10,7 @@ import { BsArrowRightSquareFill } from "react-icons/bs"
 import { useNavigate } from "react-router-dom";
 import { Grid, Button } from '@mui/material'; 
 // import { Module } from '../module/Module';
+import withAuth from '../components/Auth.js'
 
 
 const Cart = () => {
@@ -26,7 +27,15 @@ const Cart = () => {
 
   const dispatch = useDispatch();
   // const dispatch = useDispatch();
-  
+//   const checkToken = () => {
+//     const token = localStorage.getItem('token');
+//     if (token === null) 
+//       navigate("/login");
+//   }
+
+//   useEffect(()=>{
+//     checkToken();
+//   },[])
 
     
 

@@ -5,7 +5,7 @@ import Shimmer from "./Shimmer"
 import {Link } from "react-router-dom";
 import useOnlineStatus from "../utils/UseOnlineStatus";
 import UserContext from '../utils/UserContext.js';
-
+// import withAuth from '../components/Auth.js'
     
 
 const Body = () => {
@@ -52,7 +52,7 @@ const Body = () => {
  const {loggedInUser, setUserName} = useContext(UserContext)
 
 
-    return listOfRestaurants.length === 0 ?(
+    return listOfRestaurants && listOfRestaurants.length === 0 ?(
       <Shimmer />
     ):
     (

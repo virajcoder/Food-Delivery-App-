@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState,useEffect } from "react";
 import * as React from 'react';
 import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
@@ -34,6 +34,11 @@ const Header = () => {
 
    // Subscribing to the store using a Selector
    const cartItems = useSelector((store) => store.cart.items);
+   let token=JSON.parse(localStorage.getItem('token'));
+
+ 
+  
+
    //console.log(cartItems);
 
   // if no dependency array => useEffect is called on every render
@@ -49,15 +54,15 @@ const Header = () => {
           />
         </div>
         <div className="flex items-center">
-          <ul className="flex p-4 m-4">
+          <ul className="flex p-4 m-4  ">
             {/* <li className="px-4">
               Online Status: {onlineStatus ? "🟢" : "🔴"}
             </li> */}
-            <li className="px-4 mt-2"> 
+            <li className="px-4 mt-2" > 
               <Link to="/">Home</Link>
             </li>
             <li className="px-4 mt-2">
-              <Link to="/about">About Us</Link>
+            <Link to="/about">About Us</Link>
             </li>
             {/* <li className="px-4">
             <Link to="/contact">Contact Us</Link>
@@ -85,7 +90,7 @@ const Header = () => {
 
              </button>
 
-             <li className="px-4 mt-2 ">{loggedInuser} {onlineStatus ? "✅" : "🔴"}</li>
+             <li className="px-4 mt-2">{token?.username} {onlineStatus ? "✅" : "🔴"}</li>
           </ul>
         </div>
       </div>

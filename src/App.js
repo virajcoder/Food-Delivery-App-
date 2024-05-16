@@ -48,9 +48,9 @@ useEffect(() => {
     <div className="app">
       <Header />
       <Toaster/>
-      <Auth>
+      {/* <Auth> */}
       <Outlet/>
-      </Auth>
+      {/* </Auth> */}
       <Footer />
     </div>
     </UserContext.Provider>

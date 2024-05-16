@@ -4,7 +4,8 @@ import { makeStyles } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { InputAdornment } from '@mui/material';
 import { IconButton } from '@mui/material';
-
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 const useStyles = makeStyles((theme) => ({
   container: {
     marginTop: theme.spacing(4),
@@ -18,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const Login = () => {
+const Login = ( ) => {
   const classes = useStyles();
   const [formData, setFormData] = useState({
     username: '',
@@ -26,6 +27,7 @@ const Login = () => {
   });
   const [showPassword, setShowPassword] = useState(false);
 
+  const navigate=useNavigate()
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -44,6 +46,12 @@ const Login = () => {
     // Add your login logic here, such as sending credentials to a backend API
     console.log('Login form submitted:', formData);
     localStorage.setItem("token", JSON.stringify(formData));
+    const token=localStorage.getItem('token');
+    if(token){
+      navigate('/')
+      window.location.reload()
+      toast('login successfully')
+    }
   };
 
   return (
@@ -79,7 +87,7 @@ const Login = () => {
               ),
             }}
           />
-          <Button fullWidth variant="contained" color="primary" type="submit">
+          <Button fullWidth variant="contained" color="primary" type="submit" >
             Login
           </Button>
         </form>

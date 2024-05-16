@@ -1,4 +1,4 @@
-import * as React from 'react';
+import  {useEffect,useState} from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
@@ -15,14 +15,13 @@ import LockOpenTwoToneIcon from '@mui/icons-material/LockOpenTwoTone';
 import PersonTwoToneIcon from '@mui/icons-material/PersonTwoTone';
 import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
 import GradingTwoToneIcon from '@mui/icons-material/GradingTwoTone';
-import { Link } from 'react-router-dom';
-
+import { Link,useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast'
 const Sidebar=() =>{
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
    
     right: false,
   });
-
   const toggleDrawer = (anchor, open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
@@ -30,6 +29,18 @@ const Sidebar=() =>{
 
     setState({ ...state, [anchor]: open });
   };
+
+  const navigate=useNavigate()
+  const token=localStorage.getItem('token');
+  const user=JSON.parse(token)
+
+  const logoutHandler=()=>{
+    localStorage.clear()
+    toast('logout successfully')
+    window.location.reload()
+    navigate('/login')
+      
+  }
 
   const list = (anchor) => (
     <Box
@@ -40,12 +51,12 @@ const Sidebar=() =>{
     >
       <List>
         
-          <ListItem >
+          <ListItem sx={{fontSize:'2.5rem'}}>
             <ListItemButton>
               <ListItemIcon>
                  <Person fontSize="xl8" />
-              </ListItemIcon>
-                 <ListItemText primary="Acounts"/>
+              </ListItemIcon >
+                 <ListItemText primary={user?.username} />
             </ListItemButton>
           </ListItem>
         
@@ -56,13 +67,19 @@ const Sidebar=() =>{
 
       <List>
         <ListItem >
-            <ListItemButton component={Link} to="/login">
+           { !token?<ListItemButton component={Link} to="/login">
               <ListItemIcon>
                  <LoginTwoToneIcon /> 
               </ListItemIcon>
-                 <ListItemText primary="Login" />
+                 <ListItemText primary="Login" /> 
                  {/* <Button variant="contained" color="primary">Login</Button> */}
-            </ListItemButton>
+            </ListItemButton>: <ListItemButton component={Link} to="/login" onClick={logoutHandler}>
+              <ListItemIcon>
+                 <LoginTwoToneIcon /> 
+              </ListItemIcon>
+                 <ListItemText primary="logout" /> 
+                 {/* <Button variant="contained" color="primary">Login</Button> */}
+            </ListItemButton>      }  
           </ListItem>
 
 
@@ -113,8 +130,8 @@ const Sidebar=() =>{
   return (
     <div>
       {['right'].map((anchor) => (
-        <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}> <Person fontSize="xl4" /></Button>
+        <div key={anchor}>
+          <Button onClick={toggleDrawer(anchor, true)} fontSize="4xl"> <Person  /></Button>
           <Drawer
             anchor={anchor}
             open={state[anchor]}
@@ -122,7 +139,7 @@ const Sidebar=() =>{
           >
             {list(anchor)}
           </Drawer>
-        </React.Fragment>
+        </div>
       ))}
     </div>
   );

@@ -3,11 +3,18 @@ import { addItem } from "../utils/cartSlice";
 import { CON_URL } from "../../src/utils/constants";
 import toast from 'react-hot-toast'
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Alert } from "@mui/material";
+// import withAuth from '../components/Auth.js'
+
 
 
 const ItemList = ({items, dummy}) => {
-    // console.log(dummy)
+const navigate = useNavigate()
+
+const token=localStorage.getItem('token')
+
+
 
     const cartItems = useSelector((store) => store.cart.items);
 console.log('c',cartItems.find(item=>item))
@@ -22,14 +29,14 @@ console.log("virt" ,items.info)
     };
 
     return (
-      <div>
+      <div >
       {items.map((item) => (
         <div
           key={item.card.info.id}
-          className="flex justify-between p-2 m-2 text-left border-b-2"
+          className="flex justify-between  p-2 m-2 text-left border-b-2"
         >
           <div className="w-9/12">
-            <div className="py-2">
+            <div className="py-2 ">
               <span>{item.card.info.name}</span>
               <span>
                 - ₹
@@ -47,10 +54,10 @@ console.log("virt" ,items.info)
             to='/Cart'
 
           >
-            Go to cart
+          <button  onClick={()=>navigate("/cart")} className='mt-20'> Go to cart</button>  
           </Link>:<button
             className="p-2 ml-8 mt-[75px] rounded-lg bg-black text-white shadow-lg hover:bg-white  hover:text-black transition-all duration-[.3s]"
-            onClick={() =>{handleAddItem(item), toast('Added Sucessfully')}}
+            onClick={() =>{token?(handleAddItem(item),toast('add successfuly')):(navigate('/login'),toast('login first'))}}
           >
             Add to cart
           </button>}

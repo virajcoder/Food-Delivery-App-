@@ -1,7 +1,15 @@
-import {Navigate} from 'react-router-dom';
+import React from 'react';
+import { Navigate } from 'react-router-dom';
 
-export const Auth = ({ children }) => {
+const withAuth = (WrappedComponent) => {
+  return (props) => {
     const token = localStorage.getItem('token');
-    console.log('Token:', children);
-    return token ? children : <Navigate to="/login" replace />;
+    if (!token) {
+      return <Navigate to="/login" replace />;
+    }
+
+    return <WrappedComponent {...props} />;
   };
+};
+
+export default withAuth;

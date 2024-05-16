@@ -2,7 +2,7 @@ import { Component } from 'react';
 import User from "./User"
 import UserClass from './UserClass';
 import UserContext from '../../src/utils/UserContext';
-
+// import withAuth from '../components/Auth'
 // **************** function componant ***************
 // const About = () => {
 //     return (  
