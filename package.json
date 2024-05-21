@@ -47,6 +47,7 @@
     "@reduxjs/toolkit": "^2.2.3",
     "@types/react": "^18.3.2",
     "@types/react-dom": "^18.3.0",
+    "cors": "^2.8.5",
     "elemental": "^0.6.1",
     "framer-motion": "^11.1.9",
     "module-library": "^0.96.0",

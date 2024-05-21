@@ -6,18 +6,6 @@ import {Link } from "react-router-dom";
 import useOnlineStatus from "../utils/UseOnlineStatus";
 import UserContext from '../utils/UserContext.js';
 
-
-
-
-// import 'swiper/swiper.min.css'
-
-// import React from 'react'
-// import { Pagination,Navigation } from 'swiper'
-// import { Swiper, SwiperSlide } from 'swiper/react/swiper-react'
-// import 'swiper/modules/navigation/navigation.min.css';
-// import 'swiper/modules/pagination/pagination.min.css'
-
-// import withAuth from '../components/Auth.js'
     
 
 const Body = () => {
@@ -43,14 +31,23 @@ const Body = () => {
 
 
   const fetchData = async () => {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.61450&lng=77.30630&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-    );
-    const json = await data.json();
-    console.log(json);
-    
-    setListOfRestraunt(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants) 
-    setFilteredRestaurant(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+
+    try {       
+      const data = await fetch(
+        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.61450&lng=77.30630&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+      );
+      const json = await data.json();
+      console.log(json);
+      
+      setListOfRestraunt(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants) 
+      setFilteredRestaurant(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+
+
+
+    } catch (error) {
+      
+        console.log("error call api ",error);
+    }  
   }
 
 
