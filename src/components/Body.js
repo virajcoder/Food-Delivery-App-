@@ -1,14 +1,28 @@
-
+// import 'swiper/swiper-bundle.css';
 import RestaurantCard, { withPromtedLabel } from "./RestaurantCard"
 import { useContext, useEffect, useState } from "react"
 import Shimmer from "./Shimmer"
 import {Link } from "react-router-dom";
 import useOnlineStatus from "../utils/UseOnlineStatus";
 import UserContext from '../utils/UserContext.js';
+
+
+
+
+// import 'swiper/swiper.min.css'
+
+// import React from 'react'
+// import { Pagination,Navigation } from 'swiper'
+// import { Swiper, SwiperSlide } from 'swiper/react/swiper-react'
+// import 'swiper/modules/navigation/navigation.min.css';
+// import 'swiper/modules/pagination/pagination.min.css'
+
 // import withAuth from '../components/Auth.js'
     
 
 const Body = () => {
+  // const [noOfItems, setNoOfItems] = useState(4);
+  // const [carousel, setCarousel] = useState(null);
   
   const [listOfRestaurants, setListOfRestraunt] = useState([]);
   
@@ -57,6 +71,7 @@ const Body = () => {
     ):
     (
       <div className="body">
+        
         <div className="filter flex">
           <div className="search m-4 p-4">
 

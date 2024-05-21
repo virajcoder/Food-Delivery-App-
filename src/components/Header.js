@@ -47,11 +47,13 @@ const Header = () => {
     return (
       <div className="flex justify-between bg-pink-100 shadow-lg sm:bg-yellow-50 lg:bg-green-50  min-h-20">
         <div className="logo-container">
+        <Link to="/">
           <img
             className="w-28"
             src={logo}
             alt="App Logo"
           />
+          </Link>
         </div>
         <div className="flex items-center">
           <ul className="flex p-4 m-4  ">
