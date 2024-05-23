@@ -1,16 +1,14 @@
 import { useSelector } from "react-redux";
 import { useRef, useEffect } from "react";
-import { clearCart, incrQuantity, decrQuantity, removeItem, emptyItems } from "../utils/cartSlice";
-import {Container, Box} from '@mui/material';
-import  CartItem from "./CartItem";
+import { incrQuantity, decrQuantity, removeItem, emptyItems } from "../utils/cartSlice";
 import { useDispatch } from "react-redux";
 import emptycart from '../assets/emptycart.gif'
 import Typography from '@material-ui/core/Typography'
 import { BsArrowRightSquareFill } from "react-icons/bs"
 import { useNavigate } from "react-router-dom";
 import { Grid, Button } from '@mui/material'; 
-// import { Module } from '../module/Module';
-import withAuth from '../components/Auth.js'
+
+
 
 
 const Cart = () => {
@@ -24,6 +22,63 @@ const Cart = () => {
     }
 
     console.log(totalAmount.current)
+
+    const handlePaymentSuccess = (payment) => {
+        console.log("Payment Successful:", payment);
+        dispatch(emptyItems());
+        navigate('/success');
+    };
+
+    const handlePaymentError = (error) => {
+        console.log("Payment Error:", error);
+        // Handle payment errors
+    };
+
+    const makePayment = async (price) => {
+
+        // payment
+        const options = {
+            key: "rzp_test_QFCXIGewjw1Y8K",
+            amount: price * 100,
+            currency: "INR",
+            name: "Singh Food Delivery",
+            description: "Thank you for your test purchase",
+            image: '',
+            handler: handlePaymentSuccess,
+            prefill: {
+                name: '',
+                email: '',
+                contact: ''
+            },
+            notes: {
+                address: ''
+            },
+            theme: {
+                color: "#0e5db3"
+            }
+        };
+        // window.RazorpayCheckout.open(options);
+        const razorpayInstance = new window.Razorpay(options);
+        razorpayInstance.on('payment.failed', handlePaymentError);
+        razorpayInstance.open();
+    };
+
+useEffect(() => {
+
+    // if (!loginToken) {
+    //     navigate("/login")
+    // }
+
+
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+        document.body.removeChild(script);
+    };
+    }, []);
 
   const dispatch = useDispatch();
   // const dispatch = useDispatch();

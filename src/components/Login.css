@@ -9,12 +9,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+   
 }
 
 .signup-form-container {
     display: flex;
-    flex-direction: column;
+    
     justify-content: center;
     align-items: center;
     max-width: 100%;
@@ -30,7 +30,7 @@
 
 .signup-form-container form {
     display: flex;
-    flex-direction: column;
+   
 }
 
 .signup-form-container .form-group {
