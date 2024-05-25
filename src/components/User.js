@@ -6,8 +6,7 @@ const User = ({ name, location }) => {
 
   useEffect(() => {
     // * API call
-    // async function getUserInfo() {
-    // }
+   
   }, []);
 
   return (

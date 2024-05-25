@@ -8,7 +8,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-// import InboxIcon from '@mui/icons-material/MoveToInbox';
 import Person from '@mui/icons-material/Person';
 import LoginTwoToneIcon from '@mui/icons-material/LoginTwoTone';
 import LockOpenTwoToneIcon from '@mui/icons-material/LockOpenTwoTone';
@@ -72,13 +71,13 @@ const Sidebar=() =>{
                  <LoginTwoToneIcon /> 
               </ListItemIcon>
                  <ListItemText primary="Login" /> 
-                 {/* <Button variant="contained" color="primary">Login</Button> */}
+                 
             </ListItemButton>: <ListItemButton component={Link} to="/login" onClick={logoutHandler}>
               <ListItemIcon>
                  <LoginTwoToneIcon /> 
               </ListItemIcon>
                  <ListItemText primary="logout" /> 
-                 {/* <Button variant="contained" color="primary">Login</Button> */}
+                
             </ListItemButton>      }  
           </ListItem>
 
@@ -114,7 +113,7 @@ const Sidebar=() =>{
 
 
         <ListItem>
-          <ListItemButton>
+          <ListItemButton component={Link} to="/OrderdPage">
             <ListItemIcon>
                 <GradingTwoToneIcon /> 
             </ListItemIcon>

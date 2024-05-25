@@ -5,7 +5,7 @@ import Footer from './components/Footer.js';
 import Body from './components/Body.js';
 import About from './components/About.js';
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
-import Contact from './components/Contact.js';
+import Offers from './components/Offers.js';
 import Error from './components/Error.js';
 import RestaurantMenu from './components/RestaurantMenu.js';
 import UserContext from './utils/UserContext.js';
@@ -15,10 +15,11 @@ import Cart from "./components/Cart.js";
 import Login from './components/Login.js';
 import Signup from './components/Signup.js'
 import AddressForm from './components/Address.js'
-import { Auth } from './components/Auth.js';
-import toast, { Toaster } from 'react-hot-toast';
+import Success from "./components/Success";
+import BottomTaskBar from "./components/BottomTaskBar";
+import { Toaster } from 'react-hot-toast';
+import OrderdPage from './components/Orderd.js';
 
-// import Grocery from './components/Grocery.js';
 
 
 // chunking+
@@ -48,10 +49,11 @@ useEffect(() => {
     <div className="app">
       <Header />
       <Toaster/>
-      {/* <Auth> */}
+     
       <Outlet/>
-      {/* </Auth> */}
+      
       <Footer />
+      <BottomTaskBar />
     </div>
     </UserContext.Provider>
     </Provider>
@@ -70,11 +72,15 @@ const appRouter = createBrowserRouter([
     },
     {
       path: "/about",
-      element: <About />
+      element: (
+        <Suspense>
+      <About />
+      </Suspense>
+        )
     },
     {
-      path: "/contact",
-      element: <Contact />
+      path: "/offers",
+      element: <Offers />
     },
     {
       path: "/grocery",
@@ -89,6 +95,10 @@ const appRouter = createBrowserRouter([
       element: <Cart />,
     },
     {
+      path: "/success",
+      element: <Success />
+    },
+    {
       path: "/login",
       element: <Login />,
     },
@@ -99,6 +109,13 @@ const appRouter = createBrowserRouter([
     {
       path: "/AddressForm",
       element: <AddressForm />,
+    },{
+      path: "/AddressForm",
+      element: <AddressForm />,
+    },
+    {
+      path: "/OrderdPage",
+      element: <OrderdPage />,
     },
   ],
   errorElement: <Error />,

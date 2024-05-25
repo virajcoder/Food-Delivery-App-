@@ -1,25 +1,16 @@
-// SignupForm.js
+
 import React, { useState } from 'react';
 import { TextField, Button, Container, Typography } from '@mui/material';
-// import { makeStyles } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { InputAdornment } from '@mui/material';
 import { IconButton } from '@mui/material';
 
 
-// const useStyles = makeStyles((theme) => ({
-//     container: {
-//       marginTop: theme.spacing(4),
-//     },
-//     form: {
-//       '& .MuiTextField-root': {
-//         marginBottom: theme.spacing(2),
-//       },
-//     },
-//   }));
+
 
 const SignupForm = () => {
   const [formData, setFormData] = useState({
+    name: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -53,6 +44,17 @@ const SignupForm = () => {
         Sign Up
       </Typography>
       <form onSubmit={handleSubmit}>
+      <TextField
+          fullWidth
+          label="Name"
+          type="name"
+          name="name"
+          value={formData.email}
+          onChange={handleChange}
+          margin="normal"
+          variant="outlined"
+          required
+        />
         <TextField
           fullWidth
           label="Email"

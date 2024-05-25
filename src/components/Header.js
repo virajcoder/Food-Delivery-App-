@@ -1,16 +1,19 @@
-import { useContext, useState,useEffect } from "react";
+import { useContext, useState} from "react";
 import * as React from 'react';
 import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { LOGO_URL } from "../utils/constants";
 import {Link } from "react-router-dom";
 import useOnlinestatus from "../utils/UseOnlineStatus";
 import UserContext from "../utils/UserContext";
 import { useSelector } from "react-redux";
 import logo from '../assets/logo.png'
 import Sidebar from "../components/Sidebar";
+import PercentIcon from '@mui/icons-material/Percent';
+import SearchIcon from '@mui/icons-material/Search';
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+
 
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -22,80 +25,97 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
+
+
 const Header = () => {
-  const [btnNameReact, setBtnNameReact] = useState("Login");
-  
+  const [location, setLocation] = useState(null);
 
- 
-  const onlineStatus = useOnlinestatus();
-
-  const {loggedInuser} = useContext(UserContext);
-  console.log(loggedInuser);
+   
+   const onlineStatus = useOnlinestatus();
+   const {loggedInuser} = useContext(UserContext);
+    console.log(loggedInuser);
 
    // Subscribing to the store using a Selector
    const cartItems = useSelector((store) => store.cart.items);
    let token=JSON.parse(localStorage.getItem('token'));
+   console.log(cartItems);
 
- 
-  
+   const getLocation = async () => {
+    const END_POINT = `https://ipapi.co/json`;
+    try {
+        let locationData = await fetch(END_POINT);
+        let finalLocData = await locationData.json();
+        setLocation(finalLocData);
+    }
+    catch (err) {
+        console.log(err);
+    }
+};
 
-   //console.log(cartItems);
 
-  // if no dependency array => useEffect is called on every render
-  // if dependency array is empty = [] => useEffect is called on initial render(just once)
-  // if dependency array is [btnNameReact] => called everytime btnNameReact is updated
+
     return (
-      <div className="flex justify-between bg-pink-100 shadow-lg sm:bg-yellow-50 lg:bg-green-50  min-h-20">
-        <div className="logo-container">
-        <Link to="/">
-          <img
-            className="w-28"
-            src={logo}
-            alt="App Logo"
-          />
-          </Link>
-        </div>
-        <div className="flex items-center">
-          <ul className="flex p-4 m-4  ">
-            {/* <li className="px-4">
-              Online Status: {onlineStatus ? "🟢" : "🔴"}
-            </li> */}
-            <li className="px-4 mt-2" > 
-              <Link to="/">Home</Link>
-            </li>
-            <li className="px-4 mt-2">
-            <Link to="/about">About Us</Link>
-            </li>
-            {/* <li className="px-4">
-            <Link to="/contact">Contact Us</Link>
-            </li> */}
-            {/* <li className="px-4">
-            <Link to="/grocery">Grocery</Link>
-            </li> */}
-            <li className="px-4  font-bold text-xl">
-            <Link to="/cart">  <IconButton aria-label="cart" >
-      <StyledBadge badgeContent={cartItems.length} color="primary" >
-        <ShoppingCartIcon />
-      </StyledBadge>
-    </IconButton>
-    </Link>
-          </li>
-          
-            <button className="login text-3xl"
-            //  onClick={() => {
-            //   btnNameReact ==="Login"? setBtnNameReact("Logout") : setBtnNameReact("Login");
-            //   }}
-            // onClick={()openDrawerHandler}
-              >
-              {/* {btnNameReact} */}
-               <Sidebar /> 
+        <div className="parent flex justify-center bg-pink-100 shadow-lg sm:bg-yellow-50 lg:bg-green-50   w-full">
+        
+            <div className="navbar flex ml-20  w-full  max-[800px]:justify-between">
+             <div className="left  flex  justify-center items-center   lg:gap-3 max-[1000px]:w-[60%] max-[660px]:w-full">
+               <Link to="/" className="flex justify-center items-center">
+                <div className="logo-container  lg:p-1 max-[1000px]:w-full ">
+                <img
+                  className="logo w-20 h-16 lg:w-28 lg:h-20"
+                  src={logo}
+                  alt="App Logo"
+                />
+                </div>
+              </Link>
+                    <div className="workplace flex  gap-2 items-center justify-start font-semibold p-2 m-2 max-[1000px]:w-[40%]">
+                        <LocationOnOutlinedIcon className="location " />
+                        <p className="text-xs lg:text-lg"> Delhi, National Capital Territory of Delhi, India{(location !== null ? (location?.city + ", " + location?.region + ", " + location?.country_name) : " ")}</p>
+                    </div>
+            </div>
+            
 
-             </button>
+            <div className="  nav-items flex  justify-center items-center pr-6 max-[660px]:hidden">
 
-             <li className="px-4 mt-2">{token?.username} {onlineStatus ? "✅" : "🔴"}</li>
-          </ul>
+                <ul className="items flex  justify-center items-center gap-8 m-2 px-10">
+
+                  <li className="help-btn flex  gap-[5px] justify-center items-center cursor-pointer p-2  max-[1000px]:hidden  " > 
+                    <Link to="#">< SearchIcon/>Search</Link>
+                  </li>
+                  <li className="help-btn flex  gap-[5px] justify-center items-center cursor-pointer p-2  max-[1000px]:hidden  ">
+                    <Link to="/Offers"> <PercentIcon />Offers</Link>
+                  </li>
+                  <li className="help-btn flex  gap-[5px] justify-center items-center cursor-pointer p-2  max-[1000px]:hidden  ">
+                    <Link to="/about">About Me</Link>
+                  </li>
+            
+                  {/* <li className="px-4">
+                    <Link to="/grocery">Grocery</Link>
+                  </li> */}
+                  <li className="cart-btn flex  gap-[5px] justify-center items-center cursor-pointer p-2">
+                     <Link to="/cart">  
+                       <IconButton aria-label="cart">
+                       <StyledBadge badgeContent={cartItems.length} color="primary" >
+                       <ShoppingCartIcon /> 
+                       </StyledBadge>
+                       </IconButton>
+                     </Link>
+                  </li>
+    
+                  <button className=" px-4 login text-3xl ">
+                      <Sidebar /> 
+                  </button>
+
+                  <li className="px-4 mt-2">
+                    {token?.username} 
+                    {onlineStatus ? "✅" : "🔴"}
+                  </li>
+
+                </ul>
+
+            </div>
+            </div>
         </div>
-      </div>
     );
   };
   export default Header;

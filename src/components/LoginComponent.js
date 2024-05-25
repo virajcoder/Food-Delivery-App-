@@ -7,8 +7,8 @@ const LoginComponent = () => {
   return (
     <div>
         <Header/>
-      <Login/>
-      <Footer/>
+        <Login/>
+        <Footer/>
     </div>
   )
 }

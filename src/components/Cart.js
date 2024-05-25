@@ -2,11 +2,9 @@ import { useSelector } from "react-redux";
 import { useRef, useEffect } from "react";
 import { incrQuantity, decrQuantity, removeItem, emptyItems } from "../utils/cartSlice";
 import { useDispatch } from "react-redux";
-import emptycart from '../assets/emptycart.gif'
-import Typography from '@material-ui/core/Typography'
+import EmptyCart from "./EmptyCart";
 import { BsArrowRightSquareFill } from "react-icons/bs"
 import { useNavigate } from "react-router-dom";
-import { Grid, Button } from '@mui/material'; 
 
 
 
@@ -206,14 +204,8 @@ useEffect(() => {
         )
         :
         (
-          <div id='empty-cart-gif' className="flex flex-col gap-5 justify-center items-center h-full" >
-          <img src={emptycart} alt="cart-gif" width='25%' />
-          <Typography >
-            Your cart is empty. Add Items to the cart!
-          </Typography>
-          
-          <Button color="primary" variant="contained" onClick={() => navigate('/')}>Go To Shop</Button>
-          {/* <Module /> */}
+            <div className="empty">
+            <EmptyCart />
         </div>
 
         )

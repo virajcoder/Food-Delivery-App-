@@ -1,3 +1,17 @@
+
+
+
+# TO push your code on git hub
+  step -1 : git init
+  step- 2:  git add . (to add all folder )
+  step-3:   git commit -m "message "
+  step-4:   git push -u origin main
+  
+
+
+
+  # Food Delivery web App 🍟
+
 # React full Tutorial
 
 
@@ -40,19 +54,6 @@ import Component from "path";
 - client side Rauting
 - server side Rauting
 
-
-# TO push your code on git hub
-  step -1 : git init
-  step- 2:  git add . (to add all folder )
-  step-3:   git commit -m "message "
-  step-4:   git push -u origin main
-  
-
-
-
-  # Namaste React 🚀
-
-
 # Parcel
 - Dev Build
 - Local Server
@@ -71,57 +72,6 @@ import Component from "path";
 - HTTPs
 - Tree Shaking - remove unused code
 - Different dev and prod bundles
-
-
-
-# Namaste Food
-
-
-/**
- * Header
- *  - Logo
- *  - Nav Items
- * Body
- *  - Search
- *  - RestaurantContainer
- *    - RestaurantCard
- *      - Img
- *      - Name of Res, Star Rating, cuisine, delery tie
- * Footer
- *  - Copyright
- *  - Links
- *  - Address
- *  - Contact
- */
-
-
-
- Two types of Export/Import
-
-
-- Default Export/Import
-
-export default Component;
-import Component from "path";
-
-
-- Named Export/Import
-
-export const Component;
-import {Component} from "path";
-
-
-# React Hooks
- (Normal JS utility functions)
-- useState() - Superpowerful State Variables in react
-- useEffect()
-
-
-
-#  2 types Routing in web apps
- - Client Side Routing
- - Server Side Routing
-
 
 
 
@@ -151,3 +101,30 @@ import {Component} from "path";
  - Include @babel/preset-react inside my babel config
  - npm i -D @testing-library/jest-dom
  
+
+
+  // * RENDER CYCLE OF CLASS BASED COMPONENTS WHEN THE CLASS HAS TWO CHLIDREN
+  
+  /* 
+  *  - Parent Constructor()              -- Render Phase
+  *  - Parent Render()
+  
+  *    - First Child Constructor()
+  *    - First Child Render()
+  *                                      -- Render Phase
+  *    - Second Child Constructor()
+  *    - Second Child Render()
+  
+  *     <DOM UPDATED - IN SINGLE BATCH> -> Optimizes the Performance of App  -- Commit Phase
+  *    - First Child ComponentDidMount()
+  *    - Second Child ComponentDidMount()
+  
+  *  - Parent ComponentDidMount()=
+  
+
+   # notes
+   
+
+  // if no dependency array => useEffect is called on every render
+  // if dependency array is empty = [] => useEffect is called on initial render(just once)
+  // if dependency array is [btnNameReact] => called everytime btnNameReact is updated

@@ -6,8 +6,6 @@ class UserClass extends React.Component {
 
     // console.log(props);
     this.state = {
-      // count: 0,
-      // count2: 2,
       userInfo: {
         name: 'Dummy',
         location: 'Default',
