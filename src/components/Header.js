@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import logo from '../assets/logo.png'
 import Sidebar from "../components/Sidebar";
 import PercentIcon from '@mui/icons-material/Percent';
+import HomeIcon from '@mui/icons-material/Home';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 
 
@@ -87,7 +88,7 @@ console.log(location, "fgregew")
                 <ul className="items flex  justify-center items-center gap-8 m-2 px-10 ml-15">
 
                   <li className="help-btn flex  gap-[5px] justify-center items-center cursor-pointer p-2  max-[1000px]:hidden  " > 
-                    <Link to="/">Home</Link>
+                    <Link to="/"><HomeIcon/>Home</Link>
                   </li>
                   <li className="help-btn flex  gap-[5px] justify-center items-center cursor-pointer p-2  max-[1000px]:hidden  ">
                     <Link to="/Offers"> <PercentIcon />Offers</Link>
