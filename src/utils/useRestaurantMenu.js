@@ -15,7 +15,7 @@ const useRestaurantMenu = (resId) => {
             const apiUrl = "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=28.65420&lng=77.23730&restaurantId=";
             const response = await axios.get(proxyUrl + encodeURIComponent(apiUrl + resId));
             const json = response.data;
-            // console.log(json);
+            // console.log(json, "restaurent meanu");
             setResInfo(json.data);
         } catch (error) {
             console.log("Error fetching menu: ", error);

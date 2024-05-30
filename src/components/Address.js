@@ -23,7 +23,7 @@ const AddressForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission here
-    console.log(formData);
+    // console.log(formData);
   };
 
   return (

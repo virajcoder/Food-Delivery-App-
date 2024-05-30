@@ -29,7 +29,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 const Header = () => {
   const [location, setLocation] = useState([]);
-console.log(location, "fgregew")
+// console.log(location, "fgregew")
    
    const onlineStatus = useOnlinestatus();
    const {loggedInuser} = useContext(UserContext);

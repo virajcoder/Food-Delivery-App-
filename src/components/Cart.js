@@ -19,16 +19,16 @@ const Cart = () => {
         totalAmount.current = Number(totalAmount.current) + (price * quantity);
     }
 
-    console.log(totalAmount.current)
+    // console.log(totalAmount.current)
 
     const handlePaymentSuccess = (payment) => {
-        console.log("Payment Successful:", payment);
+        // console.log("Payment Successful:", payment);
         dispatch(emptyItems());
         navigate('/success');
     };
 
     const handlePaymentError = (error) => {
-        console.log("Payment Error:", error);
+        // console.log("Payment Error:", error);
         // Handle payment errors
     };
 
@@ -123,7 +123,7 @@ useEffect(() => {
                                       ? item?.card?.info?.price / 100
                                       : item?.card?.info?.defaultPrice / 100, item.quantity)
 
-                                    console.log(item?.quantity,'ll')
+                                    // console.log(item?.quantity,'ll')
                                     return (
                                         <div key={item?.card?.info?.id} className="flex items-center justify-between w-full  gap-2 my-2 ">
                                             {/* <div className="py-1">

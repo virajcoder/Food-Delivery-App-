@@ -23,7 +23,7 @@ const Body = () => {
 
   const RestaurantCardPromoted = withPromtedLabel(RestaurantCard);
 
-      console.log("body Rendered", listOfRestaurants);
+      // console.log("body Rendered", listOfRestaurants);
   
       
 
@@ -129,7 +129,7 @@ const Body = () => {
               <button 
                     className=" search-button flex justify-center items-center gap-2 p-2 px-3 m-4  bg-gray-200 hover:bg-gray-300 text-sm font-semibold  rounded-lg"
                    onClick={() => {
-                   console.log(searchText)
+                  //  console.log(searchText)
                    const filteredRestaurant = listOfRestaurants.filter(
                    (res) => res.info.name.toLowerCase().includes(searchText.toLowerCase())
                    );
@@ -156,14 +156,14 @@ const Body = () => {
                                    let filteredList1 = [...listOfRestaurants];
                                    filteredList1.sort((a , b) => a.info.costForTwo.match(/\d+/) - b.info.costForTwo.match(/\d+/));
                                 setFilteredRestaurant(filteredList1);
-                                  console.log(filteredList1, "LOW to HIGH")
+                                  // console.log(filteredList1, "LOW to HIGH")
                             }}>
                                  Low To High
                             </button>
                             <button className="filter-btn  bg-gray-200 p-2 rounded-lg hover:bg-gray-400 max-[760px]:text-sm max-[560px]:text-[10px] " onClick={() => {
                                 let filteredList2 = [...listOfRestaurants];
                                 filteredList2.sort((a, b) => b.info.costForTwo.match(/\d+/) - a.info.costForTwo.match(/\d+/));
-                                console.log(filteredList2 , " HIGH TO LOW ")
+                                // console.log(filteredList2 , " HIGH TO LOW ")
                                 setFilteredRestaurant(filteredList2);
                             }}>
                                 High To Low

@@ -44,7 +44,7 @@ const Login = ( ) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Add your login logic here, such as sending credentials to a backend API
-    console.log('Login form submitted:', formData);
+    // console.log('Login form submitted:', formData);
     localStorage.setItem("token", JSON.stringify(formData));
     const token=localStorage.getItem('token');
     if(token){
