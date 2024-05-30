@@ -1,4 +1,4 @@
-import { useContext, useState} from "react";
+import { useContext, useState , useEffect} from "react";
 import * as React from 'react';
 import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
@@ -11,7 +11,6 @@ import { useSelector } from "react-redux";
 import logo from '../assets/logo.png'
 import Sidebar from "../components/Sidebar";
 import PercentIcon from '@mui/icons-material/Percent';
-import SearchIcon from '@mui/icons-material/Search';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 
 
@@ -28,17 +27,17 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 
 const Header = () => {
-  const [location, setLocation] = useState(null);
-
+  const [location, setLocation] = useState([]);
+console.log(location, "fgregew")
    
    const onlineStatus = useOnlinestatus();
    const {loggedInuser} = useContext(UserContext);
-    console.log(loggedInuser);
+    // console.log(loggedInuser);
 
    // Subscribing to the store using a Selector
    const cartItems = useSelector((store) => store.cart.items);
    let token=JSON.parse(localStorage.getItem('token'));
-   console.log(cartItems);
+  //  console.log(cartItems);
 
    const getLocation = async () => {
     const END_POINT = `https://ipapi.co/json`;
@@ -46,12 +45,20 @@ const Header = () => {
         let locationData = await fetch(END_POINT);
         let finalLocData = await locationData.json();
         setLocation(finalLocData);
+
+       
+        
     }
     catch (err) {
         console.log(err);
     }
 };
 
+ useEffect(() => {
+
+  getLocation()
+  
+ }, [])
 
 
     return (
@@ -70,17 +77,17 @@ const Header = () => {
               </Link>
                     <div className="workplace flex  gap-2 items-center justify-start font-semibold p-2 m-2 max-[1000px]:w-[40%]">
                         <LocationOnOutlinedIcon className="location " />
-                        <p className="text-xs lg:text-lg"> Delhi, National Capital Territory of Delhi, India{(location !== null ? (location?.city + ", " + location?.region + ", " + location?.country_name) : " ")}</p>
+                        <p className="text-xs lg:text-lg"> {(location !== null ? (location?.city + ", " + location?.region + ", " + location?.country_name) : " ")}</p>
                     </div>
             </div>
             
 
             <div className="  nav-items flex  justify-center items-center pr-6 max-[660px]:hidden">
 
-                <ul className="items flex  justify-center items-center gap-8 m-2 px-10">
+                <ul className="items flex  justify-center items-center gap-8 m-2 px-10 ml-15">
 
                   <li className="help-btn flex  gap-[5px] justify-center items-center cursor-pointer p-2  max-[1000px]:hidden  " > 
-                    <Link to="#">< SearchIcon/>Search</Link>
+                    <Link to="/">Home</Link>
                   </li>
                   <li className="help-btn flex  gap-[5px] justify-center items-center cursor-pointer p-2  max-[1000px]:hidden  ">
                     <Link to="/Offers"> <PercentIcon />Offers</Link>

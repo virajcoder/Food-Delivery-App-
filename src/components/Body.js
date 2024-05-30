@@ -6,6 +6,8 @@ import {Link } from "react-router-dom";
 import useOnlineStatus from "../utils/UseOnlineStatus";
 import UserContext from '../utils/UserContext.js';
 import SearchIcon from '@mui/icons-material/Search';
+import { config } from 'process';
+import axios from 'axios'
 
     
 
@@ -23,35 +25,27 @@ const Body = () => {
 
       console.log("body Rendered", listOfRestaurants);
   
-
+      
 
      useEffect(() => {
     fetchData();
         }, []);
 
-
-
-  const fetchData = async () => {
-
-    try {       
-      const data = await fetch(
-        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.61450&lng=77.30630&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-      );
-      const json = await data.json();
-      console.log(json);
-      
-      setListOfRestraunt(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants) 
-      setFilteredRestaurant(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
-
-
-
-    } catch (error) {
-      
-        console.log("error call api ",error);
-    }  
-  }
-
-
+        const fetchData = async () => {
+          try {
+            const proxyUrl = 'https://api.allorigins.win/raw?url='; // CORS proxy URL
+            const apiUrl = 'https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.61450&lng=77.30630&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING';
+            
+            const response = await axios.get(proxyUrl + encodeURIComponent(apiUrl));
+            const json = response.data;
+        
+            setListOfRestraunt(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+            setFilteredRestaurant(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+          } catch (error) {
+            console.log("Error calling API: ", error);
+          }
+        }
+        
 
   const onLineStatus = useOnlineStatus();
   if(onLineStatus === false)
@@ -151,21 +145,23 @@ const Body = () => {
                           (res) => parseFloat(res.info.avgRating) > "4.1"
                           );
                            setFilteredRestaurant(filteredList)
-                           console.log(filteredList)
+                         
                           }}>
                           Top Rated Restaurants
                    </button>
                    <button className="filter-btn  bg-gray-200 p-2 rounded-lg hover:bg-gray-400 max-[760px]:text-sm max-[560px]:text-[10px] " onClick={() => {
-                                let filteredList = [...listOfRestaurants];
-                                filteredList.sort((a, b) => a.info.costForTwo - b.info.costForTwo);
-                                setFilteredRestaurant(filteredList);
+                                   let filteredList1 = [...listOfRestaurants];
+                                   filteredList1.sort((a , b) => a.info.costForTwo.match(/\d+/) - b.info.costForTwo.match(/\d+/));
+                                setFilteredRestaurant(filteredList1);
+                                  console.log(filteredList1, "LOW to HIGH")
                             }}>
                                  Low To High
                             </button>
                             <button className="filter-btn  bg-gray-200 p-2 rounded-lg hover:bg-gray-400 max-[760px]:text-sm max-[560px]:text-[10px] " onClick={() => {
-                                let filteredList = [...listOfRestaurants];
-                                filteredList.sort((a, b) => a.info.costForTwo - b.info.costForTwo);
-                                setFilteredRestaurant(filteredList);
+                                let filteredList2 = [...listOfRestaurants];
+                                filteredList2.sort((a, b) => b.info.costForTwo.match(/\d+/) - a.info.costForTwo.match(/\d+/));
+                                console.log(filteredList2 , " HIGH TO LOW ")
+                                setFilteredRestaurant(filteredList2);
                             }}>
                                 High To Low
                             </button>
