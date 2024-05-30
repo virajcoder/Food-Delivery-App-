@@ -12,7 +12,8 @@ const useRestaurantMenu = (resId) => {
     const fetchMenu = async () => {
         try {
             const proxyUrl = 'https://api.allorigins.win/raw?url=';
-            const response = await axios.get(proxyUrl + encodeURIComponent(MENU_API + resId));
+            const apiUrl = 'https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.61450&lng=77.30630&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING';
+            const response = await axios.get(proxyUrl + encodeURIComponent(apiUrl + resId));
             const json = response.data;
             // console.log(json);
             setResInfo(json.data);
