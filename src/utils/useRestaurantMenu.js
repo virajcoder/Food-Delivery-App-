@@ -10,10 +10,16 @@ const useRestaurantMenu = (resId) => {
     }, []);
 
     const fetchMenu = async () => {
-        const data = await fetch( MENU_API + resId );
-        const json = await data.json();
-        // console.log(json);
-        setResInfo(json.data);
+        try {
+            const proxyUrl = 'https://api.allorigins.win/raw?url=';
+            const menuApi = "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=28.65420&lng=77.23730&restaurantId=";
+            const response = await axios.get(proxyUrl + encodeURIComponent(menuApi  + resId));
+            const json = response.data;
+            // console.log(json, "restaurent meanu");
+            setResInfo(json.data);
+        } catch (error) {
+            console.log("Error fetching menu: ", error);
+        }
     };
     return resInfo
 };
