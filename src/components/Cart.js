@@ -24,7 +24,7 @@ const Cart = () => {
     const handlePaymentSuccess = (payment) => {
         // console.log("Payment Successful:", payment);
         dispatch(emptyItems());
-        navigate('/success');
+        navigate("/success");
     };
 
     const handlePaymentError = (error) => {
@@ -75,8 +75,8 @@ useEffect(() => {
 
     return () => {
         document.body.removeChild(script);
-    };
-    }, []);
+     };
+    }, []);
 
   const dispatch = useDispatch();
   // const dispatch = useDispatch();

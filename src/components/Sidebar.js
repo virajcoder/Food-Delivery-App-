@@ -72,7 +72,8 @@ const Sidebar=() =>{
               </ListItemIcon>
                  <ListItemText primary="Login" /> 
                  
-            </ListItemButton>: <ListItemButton component={Link} to="/login" onClick={logoutHandler}>
+            </ListItemButton>: 
+            <ListItemButton component={Link} to="/login" onClick={logoutHandler}>
               <ListItemIcon>
                  <LoginTwoToneIcon /> 
               </ListItemIcon>

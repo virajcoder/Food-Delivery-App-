@@ -28,7 +28,7 @@ const RestaurantMenu = () =>{
     const { lastMileTravelString, deliveryTime } = resInfo?.cards[2]?.card?.card?.info ?? resInfo?.cards[2]?.card?.card?.info.sla;
     
 
-    const{ itemCards } = resInfo?.cards[4]?.groupedCard.cardGroupMap?.REGULAR?.cards[1]?.card?.card;
+    const{ itemCards } = resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card;
           
           // console.log(resInfo?.cards[4]?.groupedCard.cardGroupMap?.REGULAR?.cards);
 

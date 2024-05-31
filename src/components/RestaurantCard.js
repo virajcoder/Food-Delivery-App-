@@ -4,26 +4,9 @@ import UserContext from "../utils/UserContext";
 import { AiFillStar } from "react-icons/ai";
 
 
-
-//  const styleCard = {
-//   backgroundColor: '#f0f0f0',
-// };
-// * Props :
-// * prop -> is Just a JS Object
-// * Note: When you have to dainamically pass in a data to a component, you pass in prop
-// const RestaurantCard = (props) => {
-// console.log(props);
-// * Note We can also destructure props on the fly by wrapping them in between {}, this is like...
-// * const { resName, cuisine } = props;
-// const RestaurantCard = ({ resName, cuisine }) => {
-//   console.log({ resName, cuisine });
-
-
-
-
 const RestaurantCard = (props) => {
-    const { resData } = props;
 
+    const { resData } = props;
     const { loggedInuser } = useContext(UserContext)  ;
     const {
       cloudinaryImageId,
@@ -42,11 +25,11 @@ const RestaurantCard = (props) => {
           className="card border-[1.5px] border-transparent hover:border-solid hover:border-black/10 hover:shadow-lg p-4 cursor-pointer"
       >
         <div className="res-card w-[16.2rem] min-h-[18rem] flex flex-col justify-start items-start gap-3 ">
-          <img
+            <img
              className="rounded-lg res-logo w-full "
              alt="res-logo"       
              src={CON_URL+cloudinaryImageId }
-          />
+            />
            <div className="name-details  flex flex-col justify-between items-start gap-1">
           <h3 className="font-bold py-4 text-lg">{name}</h3>
           <h4>{cuisines.join(', ')}</h4>

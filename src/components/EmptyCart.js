@@ -13,7 +13,7 @@ const EmptyCart = () => {
         <div id='empty-cart-gif' className="flex flex-col gap-5 justify-center items-center h-full" >
         <img src={emptycart} alt="cart-gif" width='25%' />
         <div className="head flex flex-col  items-center">
-                        <div className="heading font-semibold lg:text-xl pt-2">
+                        <div className="font-semibold lg:text-xl pt-2">
                             Your cart is empty
                         </div>
                         <div className="disc p-2 flex justify-center items-center  text-center pb-4">

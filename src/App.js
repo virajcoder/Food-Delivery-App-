@@ -28,7 +28,7 @@ import OrderdPage from './components/Orderd.js';
 // lazy Loading
 // on demanding loading
 
-const Grocery = lazy(() => import("./components/Grocery.js"))
+const Grocery = lazy(() => import("./components/About.js"))
 
 const AppLayout = () => {
 
@@ -73,7 +73,7 @@ const appRouter = createBrowserRouter([
     {
       path: "/about",
       element: (
-        <Suspense>
+        <Suspense fallback={<h1>Loading...</h1>}>
       <About />
       </Suspense>
         )

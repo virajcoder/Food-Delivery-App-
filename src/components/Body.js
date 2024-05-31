@@ -147,7 +147,10 @@ const Body = () => {
                            const filteredList = listOfRestaurants.filter(
                           (res) => parseFloat(res.info.avgRating) > "4.1"
                           );
-                           setFilteredRestaurant(filteredList)
+                          const sortedList = filteredList.sort((a, b) => {
+                            return parseFloat(b.info.avgRating) - parseFloat(a.info.avgRating);
+                        });
+                           setFilteredRestaurant(sortedList)
                          
                           }}>
                           Top Rated Restaurants
